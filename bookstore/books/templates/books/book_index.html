@@ -7,7 +7,7 @@
             <li>
             <div class="caption">
                 <a href="{% url 'books:book_detail' book.id %}">
-                <img src="{{ book.book_cover }}" class="img-responsive">
+                <img src="{{ book.book_cover }}" style="width: 150px; height: 200px;">
                 </a>
                 <h2>{{ book.book_title }}</h2>
                 <h4>{{ book.writer }}</h4>
