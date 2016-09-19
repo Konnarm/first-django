@@ -1,0 +1,41 @@
+{% extends 'books/base.html' %}
+{% block book_active %}active{% endblock %}
+{% block body %}
+
+        <ul>
+            {% for book in all_books %}
+            <li>
+            <div class="caption">
+                <a href="{% url 'books:book_detail' book.id %}">
+                <img src="{{ book.book_cover }}" class="img-responsive">
+                </a>
+                <h2>{{ book.book_title }}</h2>
+                <h4>{{ book.writer }}</h4>
+                <a href="{% url 'books:book_detail' book.id %}" class="btn btn-primary btn-sm"> View Details</a>
+    <!--delete -->
+                <form action="{% url 'books:book-delete' book.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="writer_id" value="{{ writer.id }}"/>
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </form>
+
+                <a href="{% url 'books:book-update' book.id %}" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span>
+                </a>
+
+                <a href="#" class="btn btn-default btn-sm btn-favorite">
+                    <span class="glyphicon glyphicon-star {% if writer.is_favorite %}active{% endif %}"></span>
+                </a>
+            </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}
+{% block addition_type %}
+<a href="{% url 'books:book-add' %}">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Book
+</a>
+{% endblock %}

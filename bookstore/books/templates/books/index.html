@@ -1,0 +1,32 @@
+{% extends 'books/base.html' %}
+{% block writer_active %}active{% endblock %}
+{% block body %}
+
+        <ul>
+            {% for writer in all_writers %}
+            <li>
+            <div class="caption">
+                <a href="{% url 'books:writer_detail' writer.id %}">
+                <img src="{{ writer.writer_photo }}" style="width: 250px;">
+                </a>
+                <h2>{{ writer.name }}</h2>
+                <h4>{{ writer.nationality }}</h4>
+                <a href="{% url 'books:writer_detail' writer.id %}" class="btn btn-primary btn-sm"> View Details</a>
+    <!--delete -->
+                <form action="{% url 'books:writer-delete' writer.id %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="hidden" name="writer_id" value="{{ writer.id }}"/>
+                    <button type="submit" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                </form>
+
+                <a href="{% url 'books:writer-update' writer.id %}" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-edit"></span>
+                </a>
+            </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+{% endblock %}

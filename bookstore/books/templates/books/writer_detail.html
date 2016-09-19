@@ -1,0 +1,14 @@
+{% extends 'books/base.html' %}
+{% block title %}{{ writer.name }} Details{% endblock %}
+{% block body %}
+<img src="{{ writer.writer_photo }}" style="width: 250px;">
+
+<h1>Name: <small>{{writer.name}}</small></h1><h2>Genre:<small>{{ writer.genre }}</small></h2>
+<h3>Nationality:<small>{{writer.nationality}}</small></h3>
+<br>
+<h4>Books:</h4>
+    {% for book in writer.book_set.all %}
+            <a href="{% url 'books:book_detail' book.id %}">{{ book.book_title }}</a>
+            <br>
+    {% endfor %}
+{% endblock %}
